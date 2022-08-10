@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.test.service.UserMapper">
+
+	<select id="userLogin" resultType="userVO">
+		SELECT * FROM testuser
+		WHERE userid = #{userid} AND userpass =#{userpass}
+	</select>
+	
+	<insert id="register" parameterType="userVO">
+		INSERT INTO testuser(userid, userpass, username, userage, useremail)
+		VALUES(#{userid}, #{userpass}, #{username}, #{userage}, #{useremail})
+	</insert>
+</mapper>

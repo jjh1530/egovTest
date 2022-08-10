@@ -3,6 +3,55 @@
 <mapper namespace="egovframework.example.test.service.TestMapper">
 
 	<select id="selectTest" resultType="testVO">
-		select * from test
+		SELECT * FROM testboard
+		<where>
+		    <if test="searchType=='title' and keyword != null and keyword != '' ">				
+ 				AND title like CONCAT('%', #{keyword}, '%')	
+ 			</if>
+ 			<if test="searchType=='writer' and keyword != null and keyword != '' ">				
+ 				AND writer like CONCAT('%', #{keyword}, '%')			
+ 			</if>
+		</where>
+		ORDER BY idx desc
+		LIMIT #{startList}, #{listSize}
 	</select>
+	
+	<select id="getTestListCnt" resultType="Integer">
+ 		SELECT count(*) as listCnt
+ 		FROM testboard
+ 		<where>
+ 			<if test="keyword != null and keyword !=''">
+	 			<if test="searchType=='title'">
+	 				AND title like CONCAT('%',#{keyword}, '%')
+	 			</if>
+	 			<if test="searchType=='writer' ">
+	 				AND writer like CONCAT('%',#{keyword}, '%')
+	 			</if>
+ 			</if>
+ 		</where>
+ 	</select>
+	
+	<select id="testBoardDetail" resultType="testVO" parameterType="Integer">
+		SELECT * FROM testboard 
+		WHERE idx = #{idx}
+	</select>
+	
+	<insert id="testBoardWrite" parameterType="testVO">
+		INSERT INTO testboard(title, content, writer)
+		VALUES(#{title}, #{content}, #{writer})
+	</insert>
+	
+	<delete id="testBoardDelete">
+		DELETE FROM testboard WHERE idx=#{idx}
+	</delete>
+	
+	<update id="testBoardUpdate" parameterType="testVO">
+		UPDATE testboard SET title=#{title}, content=#{content}
+		WHERE idx=#{idx}
+	</update>
+	
+	<update id="testCount" parameterType="Integer">
+		UPDATE testboard SET count= count + 1
+		WHERE idx =#{idx}
+	</update>
 </mapper>

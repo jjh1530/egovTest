@@ -5,6 +5,7 @@
     <typeAliases>
 		<typeAlias alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 		<typeAlias alias="testVO" type="egovframework.example.test.vo.TestVO"/>
+		<typeAlias alias="userVO" type="egovframework.example.test.vo.UserVO"/>
 	
     </typeAliases>
 </configuration>
