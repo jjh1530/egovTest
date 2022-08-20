@@ -62,7 +62,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">게시판 글작성</div>
     <div class="panel-body">
-     <form id="form1" name="form1" class="form-horizontal" method="post"  >
+     <form id="form1" name="form1" class="form-horizontal" method="post" enctype="multipart/form-data" >
 		   <div class="form-group">
 		    <label class="control-label col-sm-2" for="title">제목 :</label>
 		    <div class="col-sm-10">
@@ -78,9 +78,15 @@
 		  <div class="form-group">
 		    <label class="control-label col-sm-2" for="writer">작성자 :</label>
 		    <div class="col-sm-10">
-		     <input type="text" class="form-control" id="writer" name="writer" style="width:30%;"  value=${userSession.userid } readonly="readonly">
+		     <input type="text" class="form-control" id="writer" name="writer" style="width:30%;" readonly="readonly" value=${userSession.userid } >
 		    </div>
 		  </div>
+		  <div class="form-group">
+		    <label class="control-label col-sm-2" for="uploadFile">첨부파일 :</label>
+		    <div class="col-sm-10">
+		     <input multiple="multiple"type="file" id="uploadFile" name="uploadFile"  style="width:30%">
+		    </div>
+		    </div>
 		    <div style="text-align:center;">
 	   	   <input type="button" value="등록" id ="btn_add" name="btn_add" class='btn btn-primary' onclick="testBoardAdd()"/>
 	       <input type="button" value="리스트"  onclick="location.href='${contextPath}/testBoardList.do'" class='btn btn-success'/>

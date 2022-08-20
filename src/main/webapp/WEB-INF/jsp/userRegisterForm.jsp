@@ -15,47 +15,91 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <script>
+$(document).ready(function(){
+	if(${!empty msgType}){
+		$("#messageType").attr("class","modal-content panel-warning");
+		$("#myMessage").modal("show");	
+	}
+});
+function registerCheck() {
+	var userid = $("#userid").val();
+	$.ajax({
+		url : "/registerCheck.do",
+		type : "get",
+		data : {"userid" : userid},
+		success : function(result) {
+			//중복 유무 체크(result = 1 사용할 수 있는 아이디)
+			//중복 유무 체크(result = 1 사용할 수 있는 아이디)
+			if(result =="1") {
+				$("#checkMessage").html("사용할 수 있는 아이디입니다.");
+				$("#checkType").attr("class","modal-content panel-success")
+			}else {
+				$("#checkMessage").html("사용할 수 없는 아이디입니다.");
+				$("#checkType").attr("class","modal-content panel-danger")
+			}
+			$("#registerModal").modal("show");
+		},
+		error : function() {alert("error");}
+	});
+}
+
+function passwordCheck() {
+	var userpass1 = $("#userpass1").val();
+	var userpass2 = $("#userpass2").val();
+	if (userpass1 != userpass2) {
+		$("#passMessage").html("비밀번호가 일치하지 않습니다.");
+	}else {
+		$("#passMessage").html("");
+	}		
+}
+
 $(function() {
 	
 	$("#btn_submit").click(function(){
 		var userid = $.trim($("#userid").val());
-		var userpass = $.trim($("#userpass").val());
+		var userpass = $.trim($("#userpass1").val());
+		var userpass2 =  $.trim($("#userpass2").val());
 		var userage= $("#userage").val();
+		var username = $("#username").val();
+		var useremail = $("#useremail").val();
 		if(userid == "") {
 			alert("아이디를 입력해주세요.");	
 			$("#userid").focuse();
 			return false;
 		}
-		
 		if(userpass == "") {
 			alert("암호를 입력해주세요.");	
-			$("#userpass").focuse();
+			$("#userpass1").focuse();
 			return false;
 		}
 		if (userage == null || userage == "" || userage == 0) {
 			alert("나이를 입력하세요");
 			return false;
 		}
-		
+		if(userpass != userpass2) {
+			alert("비밀번호가 다릅니다.")	
+			return false;
+		}
 	
 		$.ajax({
 			/* 전송 전 세팅 */
     		type:"POST",
-    		data: "userid="+userid+ "&userpass=" + userpass,
+    		data: "userid="+userid+ "&userpass=" + userpass+ "&username=" + username
+    				+ "&userage=" + userage + "&useremail=" + useremail,
     		url:"userRegister.do", //데이터를 보내는 곳
     		dataType:"text",     // 리턴 타입
     		
     		/* 전송 후 세팅  */
     		success: function(result) {
     			if(result == "ok") {
-    				alert("회원가입 로그인 되었습니다.");
+    				alert("회원가입 되었습니다.");
     				location = "testBoardList.do";
     			} else {
     				alert("중복된 아이디 입니다.");
     			}
     		},
     		error: function() {  // 장애발생
-    			alert("중복된 아이디 입니다");
+    			alert("나이에 숫자만 입력 또는 중복된 아이디 입니다.");
     		}
     	});	
 	});
@@ -74,10 +118,15 @@ $(function() {
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">아이디</td>
       	    <td><input id="userid" name="userid" class="form-control" type="text" placeholder="아이디" maxlength="20"/></td>
+      	  	 <td style="width:110px;"><button type="button" class="btn btn-primary btn-sm" onclick="registerCheck();">중복확인</button></td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">비밀번호</td>
-      	    <td colspan="2"><input id="userpass" name="userpass"  class="form-control" type="password" placeholder="비밀번호" maxlength="20"/></td>
+      	    <td colspan="2"><input id="userpass1" name="userpass1" onkeyup="passwordCheck();" class="form-control" type="password" placeholder="비밀번호" maxlength="20"/></td>
+      	  </tr>
+      	  <tr>
+      	    <td style="width:110px; vertical-align: middle;">비밀번호 확인</td>
+      	    <td colspan="2"><input id="userpass2" name="userpass2" onkeyup="passwordCheck();" class="form-control" type="password" placeholder="비밀번호 확인" maxlength="20"/></td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">이름</td>
@@ -93,7 +142,7 @@ $(function() {
       	  </tr>
       	  <tr>
       	    <td colspan="3" style="text-align: left;">
-      	       <button type="button" id="btn_submit" name="btn_submit"  class="btn btn-primary btn-sm pull-right">회원가입</button>
+      	       <span id="passMessage" style="color:red;"></span><button type="button" id="btn_submit" name="btn_submit"  class="btn btn-primary btn-sm pull-right">회원가입</button>
       	    </td>
       	  </tr>
       	</table>
@@ -101,8 +150,29 @@ $(function() {
     </div>
   </div>
     
+    <!-- Modal -->
+  <div class="modal fade" id="registerModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div id="checkType" class="modal-content">
+        <div class="modal-header panel-heading">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">메세지 확인</h4>
+        </div>
+        <div class="modal-body">
+          <p id="checkMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
     <div class="panel-footer">footer</div>
   </div>
+
 
 </body>
 </html>

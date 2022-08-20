@@ -1,5 +1,7 @@
 package egovframework.example.test.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TestVO {
 
 	private int idx;
@@ -8,6 +10,9 @@ public class TestVO {
 	private int count;
 	private String writer;
 	private String indate;
+	private String filename;
+	private MultipartFile uploadFile;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -43,6 +48,18 @@ public class TestVO {
 	}
 	public void setIndate(String indate) {
 		this.indate = indate;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 	
 	

@@ -11,4 +11,8 @@
 		INSERT INTO testuser(userid, userpass, username, userage, useremail)
 		VALUES(#{userid}, #{userpass}, #{username}, #{userage}, #{useremail})
 	</insert>
+	
+	<select id="registerCheck" resultType="userVO">
+		select * from testuser where userid= #{userid}
+	</select>
 </mapper>

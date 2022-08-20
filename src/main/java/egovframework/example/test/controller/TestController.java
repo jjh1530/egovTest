@@ -1,16 +1,21 @@
 package egovframework.example.test.controller;
 
 
-import java.util.List;
 
+import java.io.File;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.test.service.TestService;
@@ -76,7 +81,23 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/testBoardWrite.do")
-	public String testBoardWrite(TestVO vo) throws Exception {
+	public String testBoardWrite(TestVO vo, HttpServletRequest request) throws Exception {
+		
+		String filename = null;
+		String uploadPath = request.getServletContext().getRealPath("file_repo");
+		MultipartFile uploadFile = vo.getUploadFile();
+		System.out.println(uploadFile);
+		if (!uploadFile.isEmpty()) {
+			String originalFilename = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFilename);
+			UUID uuid = UUID.randomUUID();
+			filename = uuid + "." +ext;
+			uploadFile.transferTo(new File(uploadPath +"/" + filename));
+			System.out.println(uploadPath);
+		}
+		
+		vo.setFilename(filename);
+		
 		testService.testBoardWrite(vo);
 		
 		return "redirect:testBoardList.do";
@@ -100,7 +121,23 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/testBoardUpdate.do")
-	public String testBoardUpdate(TestVO vo,RedirectAttributes rttr) throws Exception {
+	public String testBoardUpdate(TestVO vo,RedirectAttributes rttr, HttpServletRequest request) throws Exception {
+		
+		String filename = null;
+		String uploadPath = request.getServletContext().getRealPath("file_repo");
+		MultipartFile uploadFile = vo.getUploadFile();
+		if (!uploadFile.isEmpty()) {
+			String originalFilename = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFilename);
+			UUID uuid = UUID.randomUUID();
+			filename = uuid + "." +ext;
+			uploadFile.transferTo(new File(uploadPath +"/" + filename));
+			vo.setFilename(filename);
+		}else {
+			testService.testBoardUpdate(vo);
+			rttr.addFlashAttribute("msgType","수정");
+			rttr.addFlashAttribute("msg","수정되었습니다.");
+		}
 		testService.testBoardUpdate(vo);
 		rttr.addFlashAttribute("msgType","수정");
 		rttr.addFlashAttribute("msg","수정되었습니다.");

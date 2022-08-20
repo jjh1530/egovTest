@@ -53,6 +53,12 @@ function boardDelete() {
         <pre><c:out value="${fn:split(vo.indate,' ')[0]}"/></pre>
       </div>
     </div>
+    <c:if test="${vo.filename !=null && vo.filename!=''}">
+		<div style="vertical-align: middle;">
+			<img src="<c:out value='file_repo/${vo.filename}'/>"
+				width="90%" height="600px">
+		</div>
+	</c:if>
     </form>
     <input type="button" value="리스트" onclick="location.href='${contextPath}/testBoardList.do'" class='btn btn-success'/>
 	<c:if test="${userSession.userid == vo.writer }">

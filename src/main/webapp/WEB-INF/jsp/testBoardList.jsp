@@ -116,7 +116,9 @@ $(document).on('click','#btnSearch',function(e){
 				</c:forEach>
 			</tbody>
 		</table>
-	    <button type="button"  class="btn btn-default pull-right" onclick="location='testBoardWriteForm.do'">글쓰기</button>
+		<c:if test="${userSession.userid != null  }">
+	    	<button type="button"  class="btn btn-default pull-right" onclick="location='testBoardWriteForm.do'">글쓰기</button>
+	    </c:if>
     </div>
     <!-- 페이징 -->
 	<div id="paginationBox" class="text-center">

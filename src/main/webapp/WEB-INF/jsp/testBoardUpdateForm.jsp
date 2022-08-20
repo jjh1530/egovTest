@@ -60,7 +60,7 @@ function testBoardUpdate(){
   <div class="panel panel-default">
     <div class="panel-heading">게시판 수정</div>
     <div class="panel-body">
-   		<form id="form1" name="form1" class="form-horizontal" method="post"  >
+   		<form id="form1" name="form1" class="form-horizontal" method="post" enctype="multipart/form-data" >
    			<input type="hidden" name="idx" value="${vo.idx }"/>
    			<table class="table table-bordered">
    				<tr>
@@ -74,6 +74,10 @@ function testBoardUpdate(){
 				<tr>
    					<td>작성자</td>
    					<td><input type="text" id="writer" n ame="writer" class="form-control" value="${vo.writer }" readonly="readonly"/></td>
+   				</tr>
+   				<tr>
+   					<td>첨부파일</td>
+   					<td><input type="file" id="uploadFile" name="uploadFile"  style="width:30%"></td>
    				</tr>
    				<tr>
    					<td colspan="2" align="center">

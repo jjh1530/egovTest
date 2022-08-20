@@ -23,4 +23,9 @@ public class UserServiceImpl implements UserService{
 	public int register(UserVO vo) throws Exception {
 		return userDao.register(vo);
 	}
+	
+	@Override
+	public UserVO registerCheck(String userid) throws Exception {
+		return userDao.registerCheck(userid);
+	}
 }
