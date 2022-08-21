@@ -21,7 +21,7 @@ $(document).ready(function(){
 	}
 });
 
-function fn_prev(page, range, rangeSize, listSize, searchType, keyword) {
+function fn_prev(page, range, rangeSize, listSize, searchType, keyword1, keyword2) {
 	
 	var page = ((range - 2) * rangeSize) + 1;
 	var range = range - 1;
@@ -30,21 +30,23 @@ function fn_prev(page, range, rangeSize, listSize, searchType, keyword) {
 	url += "&range=" + range;
 	url += "&listSize=" + listSize;
 	url += "&searchType=" + searchType;
-	url += "&keyword=" + keyword;
+	url += "&keyword1=" + keyword1;
+	url += "&keyword2=" + keyword2;
 	location.href= url;
 }
 
-function fn_pagination(page, range, rangeSize, listSize, searchType, keyword) {
+function fn_pagination(page, range, rangeSize, listSize, searchType, keyword1, keyword2) {
 	var url = "/testBoardList.do";
 		url += "?page=" + page;
 		url += "&range=" + range;
 		url += "&listSize=" + listSize;
 		url += "&searchType=" + searchType;
-		url += "&keyword=" + keyword;
+		url += "&keyword1=" + keyword1;
+		url += "&keyword2=" + keyword2;
 		location.href= url;
 }
 
-function fn_next(page, range, rangeSize, listSize, searchType, keyword) {
+function fn_next(page, range, rangeSize, listSize, searchType, keyword1, keyword2) {
 	
 	var page = parseInt((range * rangeSize)) +1;
 	var range = parseInt(range) +1;
@@ -53,14 +55,16 @@ function fn_next(page, range, rangeSize, listSize, searchType, keyword) {
 	url += "&range=" + range;
 	url += "&listSize=" + listSize;
 	url += "&searchType=" + searchType;
-	url += "&keyword=" + keyword;
+	url += "&keyword1=" + keyword1;
+	url += "&keyword2=" + keyword2;
 	location.href= url;
 }
 $(document).on('click','#btnSearch',function(e){
 	e.preventDefault();
 	var url = "/testBoardList.do";
 	url += "?searchType=" + $('#searchType').val();
-	url += "&keyword=" + $('#keyword').val();
+	url += "&keyword1=" + $('#keyword1').val();
+	url += "&keyword2=" + $('#keyword2').val();
 	location.href = url;
 	console.log(url);
 });
@@ -73,7 +77,22 @@ $(document).on('click','#btnSearch',function(e){
   <div class="panel panel-default">
     <div class="panel-heading">게시판 조회</div>
     <div class="panel-body">
-    
+     <form id="form1" name="form1" class="form-horizontal" method="post"  >
+		   <div class="form-group">
+		    <label class="control-label col-sm-2" for="title">제목 :</label>
+		    <div class="col-sm-3">
+		      <input type="text" class="form-control" id="keyword1" name="keyword1" placeholder="제목을 입력하세요">
+		    </div>
+		     <label class="control-label col-sm-2" for="writer">작성자 :</label>
+		    <div class="col-sm-3">
+		      <input type="text" class="form-control" id="keyword2" name="keyword2" placeholder="작성자를 입력하세요">
+		    </div>
+		      <button class="btn btn-primary" name="btnSearch" id="btnSearch" onclick="btnSearch" style="padding: 10px;"  >
+			검색</button>
+		    </div>
+		
+    </form>
+    <!-- 
     <table> 
  	<tr>
 	<th style="padding-right: 10px; width:15%">
@@ -93,7 +112,7 @@ $(document).on('click','#btnSearch',function(e){
 	</th>
 	</tr>
 	</table>
-	
+	 -->
 		<table class="table table-striped text-center">
 			<thead>
 				<tr>
@@ -121,29 +140,32 @@ $(document).on('click','#btnSearch',function(e){
 	    </c:if>
     </div>
     <!-- 페이징 -->
-	<div id="paginationBox" class="text-center">
-		<ul class="pagination" style="justify-content: center; ">
-		
-			<c:if test="${pagination.prev }">
-				<li class="page-item"><a class="page-link" href="#" onclick="fn_prev('${pagination.page }','${pagination.range }', '${pagination.rangeSize }','${pagination.listSize2 }'
-				,'${search.searchType }', '${search.keyword}')">이전</a>
-			</li></c:if>
-			<c:forEach begin="${pagination.startPage }" end="${pagination.endPage}" var="title">
-				<li class='page-item <c:out value="${pagination.page ==  title ? 'active' : ''}"/> '>
-				<a class="page-link" href="#" onclick="fn_pagination('${title }', '${pagination.range }','${paginationf.rangeSize }',
-					'${pagination.listSize2 }','${search.searchType}','${search.keyword }')">
-					${title}</a></li>
-			</c:forEach>	
+		<div id ="paginationBox" class="text-center">
+			<ul class="pagination" style="justify-content: center; ">
 			
-			<c:if test="${pagination.next }">
-				<li class="page-item"><a class="page-link" href="#" onclick="fn_next('${pagination.page }','${pagination.range }', '${pagination.rangeSize }',
-					'${pagination.listSize2 }','${search.searchType }', '${search.keyword}')">다음</a>
-				</li>
-			</c:if>
-		
-		</ul>
-	</div> 
-	<!-- 페이징 종료 -->
+				<c:if test="${pagination.prev }">
+					<li class="page-item"><a class="page-link" href="#" 
+					onclick="fn_prev('${pagination.page }','${pagination.range }', '${pagination.rangeSize }','${pagination.listSize2 }'
+					,'${search.searchType }', '${search.keyword1}', '${search.keyword2}')">이전</a>
+				</c:if>
+				<c:forEach begin="${pagination.startPage }" end="${pagination.endPage}" var="title">
+					<li class="page-item <c:out value="${pagination.page ==  title ? 'active' : ''}"/> ">
+					<a class="page-link" href="#" 
+						onclick="fn_pagination('${title }', '${pagination.range }','${paginationf.rangeSize }',
+						'${pagination.listSize2 }','${search.searchType}', '${search.keyword1}', '${search.keyword2}')">
+						${title}</a></li>
+				</c:forEach>	
+				
+				<c:if test="${pagination.next }">
+					<li class="page-item"><a class="page-link" href="#" 
+					onclick="fn_next('${pagination.page }','${pagination.range }', '${pagination.rangeSize }',
+						'${pagination.listSize2 }','${search.searchType }', '${search.keyword1}', '${search.keyword2}')">다음</a>
+					</li>
+				</c:if>
+			
+			</ul>
+		</div> 
+		<!-- 페이징 종료 -->
 	<div class="panel panel-footer">게시판</div>
 </div>
 </div>

@@ -56,12 +56,19 @@ function passwordCheck() {
 $(function() {
 	
 	$("#btn_submit").click(function(){
+		
+		var email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
 		var userid = $.trim($("#userid").val());
 		var userpass = $.trim($("#userpass1").val());
 		var userpass2 =  $.trim($("#userpass2").val());
 		var userage= $("#userage").val();
 		var username = $("#username").val();
-		var useremail = $("#useremail").val();
+		
+		var email_id = $("#email_id").val();
+		var email_domain = $("#email_domain").val();
+		var useremail = email_id + "@" + email_domain;
+		
 		if(userid == "") {
 			alert("아이디를 입력해주세요.");	
 			$("#userid").focuse();
@@ -80,6 +87,23 @@ $(function() {
 			alert("비밀번호가 다릅니다.")	
 			return false;
 		}
+		if(!email_id){
+		      alert("이메일을 입력해주세요");
+		    $("#email_id").focus();
+		    return false;
+		  }
+		  if(!email_domain){
+		      alert("도메인을 입력해주세요");
+		    $("#email_domain").focus();
+		    return false;
+		  }
+		  mail = email_id+"@"+email_domain;
+		  $("#mail").val(mail);  
+		  
+		  if(!email_rule.test(mail)){
+		      alert("이메일을 형식에 맞게 입력해주세요.");
+		    return false;
+		  }
 	
 		$.ajax({
 			/* 전송 전 세팅 */
@@ -104,6 +128,10 @@ $(function() {
     	});	
 	});
 });
+
+function setEmailDomain(domain){
+    $("#email_domain").val(domain);
+}
 
 </script>
 <body>
@@ -136,10 +164,30 @@ $(function() {
       	    <td style="width:110px; vertical-align: middle;">나이</td>
       	    <td colspan="2"><input id="userage" name="userage" class="form-control" type="text" placeholder="나이" maxlength="20" value="0"/></td>
       	  </tr>
+      	  <!-- 
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">이메일</td>
       	    <td colspan="2"><input id="useremail" name="useremail" class="form-control" type="text" placeholder="이메일" maxlength="20"/></td>
       	  </tr>
+      	   -->
+      	  
+		  <tr>
+      	    <td style="width:110px; vertical-align: middle;">이메일</td>
+		  	<td colspan="2">
+			<input type="text" id="email_id" name="email_id" class="form_w200" value="" title="이메일 아이디" placeholder="이메일" maxlength="18" /> @ 
+			<input type="text" id="email_domain" name="email_domain" class="form_w200" value="" title="이메일 도메인" placeholder="이메일 도메인" maxlength="18"/> 
+			<select class="select" title="이메일 도메인 주소 선택" onclick="setEmailDomain(this.value);return false;">
+			    <option value="">-선택-</option>
+			    <option value="naver.com">naver.com</option>
+			    <option value="gmail.com">gmail.com</option>
+			    <option value="hanmail.net">hanmail.net</option>
+			    <option value="korea.com">korea.com</option>
+			    <option value="nate.com">nate.com</option>
+			</select>
+			</td>
+		   </tr>
+		   
+		   
       	  <tr>
       	    <td colspan="3" style="text-align: left;">
       	       <span id="passMessage" style="color:red;"></span><button type="button" id="btn_submit" name="btn_submit"  class="btn btn-primary btn-sm pull-right">회원가입</button>

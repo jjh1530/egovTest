@@ -21,7 +21,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/testBoardList.do">Home</a></li>
+        <li class="active"><a href="/main.do">Home</a></li>
         <li><a href="/testBoardList.do">게시판</a></li>
       </ul>
       <c:if test="${empty userSession }">

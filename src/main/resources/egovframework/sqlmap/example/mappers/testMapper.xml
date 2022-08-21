@@ -3,7 +3,11 @@
 <mapper namespace="egovframework.example.test.service.TestMapper">
 
 	<select id="selectTest" resultType="testVO">
-		SELECT * FROM testboard
+		SELECT * 
+		FROM testboard
+		WHERE title like CONCAT('%', #{keyword1}, '%') 
+		  AND writer like CONCAT('%', #{keyword2}, '%')
+		  <!-- 
 		<where>
 		    <if test="searchType=='title' and keyword != null and keyword != '' ">				
  				AND title like CONCAT('%', #{keyword}, '%')	
@@ -11,7 +15,8 @@
  			<if test="searchType=='writer' and keyword != null and keyword != '' ">				
  				AND writer like CONCAT('%', #{keyword}, '%')			
  			</if>
-		</where>
+		</where> 
+		-->
 		ORDER BY idx desc
 		LIMIT #{startList}, #{listSize}
 	</select>
@@ -19,16 +24,20 @@
 	<select id="getTestListCnt" resultType="Integer">
  		SELECT count(*) as listCnt
  		FROM testboard
- 		<where>
- 			<if test="keyword != null and keyword !=''">
-	 			<if test="searchType=='title'">
-	 				AND title like CONCAT('%',#{keyword}, '%')
-	 			</if>
-	 			<if test="searchType=='writer' ">
-	 				AND writer like CONCAT('%',#{keyword}, '%')
-	 			</if>
+ 		WHERE title like CONCAT('%', #{keyword1}, '%') 
+		  AND writer like CONCAT('%', #{keyword2}, '%')
+		  ORDER BY idx desc
+		LIMIT #{startList}, #{listSize}
+		  <!-- 
+		<where>
+		    <if test="searchType=='title' and keyword != null and keyword != '' ">				
+ 				AND title like CONCAT('%', #{keyword}, '%')	
  			</if>
- 		</where>
+ 			<if test="searchType=='writer' and keyword != null and keyword != '' ">				
+ 				AND writer like CONCAT('%', #{keyword}, '%')			
+ 			</if>
+		</where> 
+		-->
  	</select>
 	
 	<select id="testBoardDetail" resultType="testVO" parameterType="Integer">

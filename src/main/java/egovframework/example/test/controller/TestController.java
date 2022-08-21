@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.test.service.TestService;
+import egovframework.example.test.vo.Search;
 import egovframework.example.test.vo.TestVO;
 
 @Controller
@@ -32,13 +33,17 @@ public class TestController {
 			,@RequestParam(required=false,defaultValue="1")int page
 			,@RequestParam(required=false,defaultValue="1")int range
 			,@RequestParam(required=false,defaultValue="title")String searchType
-			,@RequestParam(required=false)String keyword
-			,@ModelAttribute("search")egovframework.example.test.vo.Search search) throws Exception {
+			,@RequestParam(required=false,defaultValue="")String keyword1
+			,@RequestParam(required=false,defaultValue="")String keyword2
+			,@RequestParam(required=false,defaultValue="")String keyword3
+			,@ModelAttribute("search")Search search) throws Exception {
 		
 		//검색
 		model.addAttribute("search", search);
 		search.setSearchType(searchType);
-		search.setKeyword(keyword);
+		search.setKeyword1(keyword1);
+		search.setKeyword2(keyword2);
+		search.setKeyword3(keyword3);
 		
 		//전체 게시글 개수
 		int listCnt = testService.getTestListCnt(search);
@@ -48,7 +53,9 @@ public class TestController {
 		
 		//페이징
 		model.addAttribute("pagination", search);
-		model.addAttribute("keyword", keyword);
+		model.addAttribute("keyword1", keyword1);
+		model.addAttribute("keyword2", keyword2);
+		model.addAttribute("keyword3", keyword3);
 		
 		//게시글 화면 출력
 		model.addAttribute("vo", testService.selectTest(search));
@@ -65,10 +72,12 @@ public class TestController {
 		
 		String writer = vo.getWriter();
 		String userid = (String) session.getAttribute("userid");
-		
-		if (!userid.equals(writer)) {
-			testService.testCount(idx);
+		if (userid != null) {
+			if (!userid.equals(writer)) {
+				testService.testCount(idx);
+			}
 		}
+		
 		
 		
 		return "testBoardDeatil";
