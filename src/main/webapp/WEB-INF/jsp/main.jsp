@@ -21,18 +21,13 @@
     <section class="notice">
     <div class="swiper mySwiper" >
       <div class="swiper-wrapper">
+	        <c:forEach var="notice" items="${notice }" varStatus="Loop">
 	        <div class="swiper-slide">
-		        <span><img src="images/img/test1.jpg" style="weight:1000px;height:600px;" />
+		        <span><img src="<c:out value='file_repo/${notice.noticeimg}'/>" style="weight:1000px;height:600px;" />
+		        <br/><a href="testNoticeDetail.do?nidx=${notice.nidx }" class="btn btn-info">자세히 보기 </a>
 		        </span>
 	        </div>
-	        <div class="swiper-slide">
-		        <span><img src="images/img/test2.jpg" style="weight:1000px;height:600px;" />
-		        </span>
-	        </div>
-	        <div class="swiper-slide">
-		        <span><img src="images/img/test3.jpg" style="weight:1000px;height:600px;" />
-		        </span>
-	        </div>
+	       </c:forEach>
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>

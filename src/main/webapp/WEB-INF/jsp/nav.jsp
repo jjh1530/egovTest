@@ -5,9 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
+
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -23,6 +25,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/main.do">Home</a></li>
         <li><a href="/testBoardList.do">게시판</a></li>
+        <li><a href="/testNoticeList.do">공지사항</a></li>
       </ul>
       <c:if test="${empty userSession }">
 	      <ul class="nav navbar-nav navbar-right">
