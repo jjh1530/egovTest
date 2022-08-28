@@ -126,9 +126,11 @@ function replyAdd(){
 		    </div>
 		  </div>
 		     <input type="hidden" class="form-control" id="idx" name="idx" style="width:30%;" value=${vo.idx } readonly="readonly">
-		   	 <input type="hidden" class="form-control" id="writer" name="writer" style="width:30%;" value=${vo.writer } readonly="readonly">
+		   	 <input type="hidden" class="form-control" id="writer" name="writer" style="width:30%;" value=${userid } readonly="readonly">
 		   <div style="text-align:center;">
+		   <c:if test="${userSession.userid != null }">
 	   	   <input type="button" value="댓글등록" id ="btn_add" name="btn_add" class='btn btn-primary' onclick="replyAdd()"/>
+	   	   </c:if>
    		</div>
     </form>
 </div>
