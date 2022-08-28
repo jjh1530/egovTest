@@ -7,6 +7,7 @@
 		<typeAlias alias="testVO" type="egovframework.example.test.vo.TestVO"/>
 		<typeAlias alias="userVO" type="egovframework.example.test.vo.UserVO"/>
 		<typeAlias alias="noticeVO" type="egovframework.example.test.vo.NoticeVO"/>
+		<typeAlias alias="replyVO" type="egovframework.example.test.vo.ReplyVO"/>
 	
     </typeAliases>
 </configuration>

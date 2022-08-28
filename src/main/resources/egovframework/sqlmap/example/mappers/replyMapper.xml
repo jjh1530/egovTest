@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.test.service.ReplyMapper">
+
+	<insert id="replyInsert" parameterType="replyVO">
+		INSERT INTO testreply(idx, content, writer)
+		VALUES(#{idx}, #{content}, #{writer})
+	</insert>
+	
+	<select id="replyBoard" resultType="replyVO" >
+		select * from testreply where idx= #{idx} ORDER BY rno desc
+	</select>
+	
+</mapper>

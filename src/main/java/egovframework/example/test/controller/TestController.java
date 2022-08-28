@@ -3,6 +3,7 @@ package egovframework.example.test.controller;
 
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import egovframework.example.test.service.ReplyService;
 import egovframework.example.test.service.TestService;
+import egovframework.example.test.vo.ReplyVO;
 import egovframework.example.test.vo.Search;
 import egovframework.example.test.vo.TestVO;
 
@@ -28,6 +31,9 @@ public class TestController {
 	@Autowired
 	TestService testService;
 
+	@Autowired
+	ReplyService replyService;
+	
 	@RequestMapping(value="/testBoardList.do")
 	public String testBoardList(Model model
 			,@RequestParam(required=false,defaultValue="1")int page
@@ -65,7 +71,7 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/testBoardDetail.do")
-	public String testBoardDetail(int idx, Model model, HttpSession session) throws Exception{
+	public String testBoardDetail(int idx, Model model, HttpSession session,HttpServletRequest request) throws Exception{
 		
 		TestVO vo = testService.testBoardDetail(idx);
 		model.addAttribute("vo", vo);
@@ -77,8 +83,8 @@ public class TestController {
 				testService.testCount(idx);
 			}
 		}
-		
-		
+		List<ReplyVO> list = replyService.replyBoard(idx);
+		model.addAttribute("reply", list);
 		
 		return "testBoardDeatil";
 	}
@@ -93,6 +99,7 @@ public class TestController {
 	public String testBoardWrite(TestVO vo, HttpServletRequest request) throws Exception {
 		
 		String filename = null;
+		//String uploadPath = "/wogns4324/tomcat/webapps/file_repo" ;
 		String uploadPath = request.getServletContext().getRealPath("file_repo");
 		MultipartFile uploadFile = vo.getUploadFile();
 		System.out.println(uploadFile);
@@ -152,6 +159,14 @@ public class TestController {
 		rttr.addFlashAttribute("msg","수정되었습니다.");
 		
 		return "redirect:testBoardList.do";
+	}
+
+	@RequestMapping(value="/replyInsert.do")
+	public String replyInsert(ReplyVO vo,RedirectAttributes re) throws Exception{
+		
+		re.addAttribute("idx",vo.getIdx());
+		replyService.replyInsert(vo);
+		return "redirect:testBoardDetail.do";
 	}
 	
 }

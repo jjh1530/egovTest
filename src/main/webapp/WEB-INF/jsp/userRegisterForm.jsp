@@ -79,8 +79,12 @@ $(function() {
 			$("#userpass1").focuse();
 			return false;
 		}
-		if (userage == null || userage == "" || userage == 0) {
+		if (userage == null || userage == "" || userage == 0  ) {
 			alert("나이를 입력하세요");
+			return false;
+		}
+		if (userage > 0 || userage < 101) {
+			alert("나이는 1세부터 100세까지 가능합니다.");
 			return false;
 		}
 		if(userpass != userpass2) {
