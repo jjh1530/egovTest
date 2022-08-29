@@ -5,12 +5,14 @@
         http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
 	
 	<!-- Mysql (POM에서 commons-dbcp, mysql-connector-java 관련 라이브러리 설정 )  --> 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-	    <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
-    	<property name="url" value="jdbc:mariadb://localhost/test" />
+   	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+       <property name="url" value="jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Seoul" />
         <property name="username" value="root"/>
-        <property name="password" value="jjh93231530!"/>  
+        <property name="password" value="1234"/>  
     </bean>
+    
+    
     <!-- 
     <property name="url" value="jdbc:mariadb://localhost/wogns4324" />
         <property name="username" value="wogns4324"/>

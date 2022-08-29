@@ -10,5 +10,7 @@ public interface UserDao {
 	public int register(UserVO vo) throws Exception;
 
 	public UserVO registerCheck(String userid) throws Exception;
+
+	public void imageUpdate(UserVO vo);
 }
 	

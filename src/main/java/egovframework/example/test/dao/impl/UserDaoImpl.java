@@ -32,4 +32,10 @@ public class UserDaoImpl implements UserDao {
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 		return mapper.registerCheck(userid);
 	}
+	
+	@Override
+	public void imageUpdate(UserVO vo) {
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		mapper.imageUpdate(vo);
+	}
 }

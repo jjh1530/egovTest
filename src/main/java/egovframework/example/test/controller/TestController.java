@@ -169,4 +169,5 @@ public class TestController {
 		return "redirect:testBoardDetail.do";
 	}
 	
+	
 }

@@ -15,4 +15,9 @@
 	<select id="registerCheck" resultType="userVO">
 		select * from testuser where userid= #{userid}
 	</select>
+	
+	<select id="imageUpdate" parameterType="userVO">
+		update testuser set filename=#{filename}
+		WHERE userid = #{userid}
+	</select>
 </mapper>

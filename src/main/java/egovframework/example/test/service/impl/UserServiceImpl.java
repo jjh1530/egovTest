@@ -28,4 +28,10 @@ public class UserServiceImpl implements UserService{
 	public UserVO registerCheck(String userid) throws Exception {
 		return userDao.registerCheck(userid);
 	}
+	
+	@Override
+	public void imageUpdate(UserVO vo) {
+		userDao.imageUpdate(vo);
+		
+	}
 }

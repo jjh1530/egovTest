@@ -24,4 +24,10 @@ public class MainControlelr {
 		
 		return "main";
 	}
+
+	@RequestMapping(value="/fileinsert.do")
+	public String fileList() {
+		
+		return "fileinsert";
+	}
 }

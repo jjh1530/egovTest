@@ -78,7 +78,7 @@
 		  <div class="form-group">
 		    <label class="control-label col-sm-2" for="writer">작성자 :</label>
 		    <div class="col-sm-10">
-		     <input type="text" class="form-control" id="writer" name="writer" style="width:30%;" readonly="readonly" value=${userSession.userid } >
+		     <input type="text" class="form-control" id="writer" name="writer" style="width:30%;"  value=${userSession.userid } >
 		    </div>
 		  </div>
 		  <div class="form-group">
