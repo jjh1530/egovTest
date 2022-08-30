@@ -39,10 +39,10 @@
 	            <li><a href="/testUserUpdateForm.do"><span class="glyphicon glyphicon-wrench"></span> 회원정보수정</a></li>
 	            <li><a href="/testImageUploadForm.do"><span class="glyphicon glyphicon-picture"></span> 사진등록</a></li>
 	            <li><a href="/testLogout.do"><span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>
-			  <c:if test="${userSession.filename eq ''}">
+			  <c:if test="${userSession.filename eq '' || userSession.filename == null}">
 		  		<li style="color:white;"><img src="<c:out value='file_repo/basicperson.png'/>"  class="img-circle"style="width:50px; height:50px;">${userSession.userid }</li>
 			  </c:if>
-			  <c:if test="${userSession.filename ne ''}">
+			  <c:if test="${userSession.filename ne null }">
 		  		<li><img src="<c:out value='file_repo/${userSession.filename}'/>" style="width:50px; height:50px;" class="img-circle">${userSession.userid}</li>
 			  </c:if>
 	      </ul>

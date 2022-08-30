@@ -20,4 +20,10 @@
 		update testuser set filename=#{filename}
 		WHERE userid = #{userid}
 	</select>
+	
+	<update id="userUpdate" parameterType="userVO" >
+		UPDATE testuser SET userpass=#{userpass}, username=#{username},
+				userage=#{userage}, useremail=#{useremail}
+		WHERE userid=#{userid}
+	</update>
 </mapper>

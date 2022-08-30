@@ -32,6 +32,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void imageUpdate(UserVO vo) {
 		userDao.imageUpdate(vo);
-		
+	}
+	
+	@Override
+	public int userUpdate(UserVO vo) {
+		return userDao.userUpdate(vo);
 	}
 }

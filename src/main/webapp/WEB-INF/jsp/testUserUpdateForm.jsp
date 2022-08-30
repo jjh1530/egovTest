@@ -25,80 +25,130 @@ $(document).ready(function(){
 });
 
 function passwordCheck() {
-	var memPassword1 = $("#memPassword1").val();
-	var memPassword2 = $("#memPassword2").val();
-	if (memPassword1 != memPassword2) {
+	var userpass = $("#userpass").val();
+	var userpass2 = $("#userpass2").val();
+	if (userpass != userpass2) {
 		$("#passMessage").html("비밀번호가 일치하지 않습니다.");
 	}else {
 		$("#passMessage").html("");
-		$("#memPassword").val(memPassword1);
 	}		
 }
-function goUpdate() {
-	var memAge= $("#memAge").val();
-	if (memAge == null || memAge == "" || memAge == 0) {
-		alert("나이를 입력하세요");
-		return false;
-	}
-	document.frm.submit();
+$(function() {
+	
+	$("#btn_submit").click(function(){
+		
+		var email_rule =  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+		var userid = $.trim($("#userid").val());
+		var userpass = $.trim($("#userpass").val());
+		var userpass2 =  $.trim($("#userpass2").val());
+		var userage= $("#userage").val();
+		var username = $("#username").val();
+		
+		var email_id = $("#email_id").val();
+		var email_domain = $("#email_domain").val();
+		var useremail = email_id + "@" + email_domain;
+		
+		if(userid == "") {
+			alert("아이디를 입력해주세요.");	
+			$("#userid").focuse();
+			return false;
+		}
+		if(userpass == "") {
+			alert("암호를 입력해주세요.");	
+			$("#userpass").focuse();
+			return false;
+		}
+		if (userage == null || userage == "" || userage == 0  ) {
+			alert("나이를 입력하세요");
+			return false;
+		}
+		if (userage < 0 || userage > 101) {
+			alert("나이는 1세부터 100세까지 가능합니다.");
+			return false;
+		}
+		if(userpass != userpass2) {
+			alert("비밀번호가 다릅니다.")	
+			return false;
+		}
+		if(!email_id){
+		      alert("이메일을 입력해주세요");
+		    $("#email_id").focus();
+		    return false;
+		  }
+		  if(!email_domain){
+		      alert("도메인을 입력해주세요");
+		    $("#email_domain").focus();
+		    return false;
+		  }
+		  mail = email_id+"@"+email_domain;
+		  $("#mail").val(mail);  
+		  
+		  if(!email_rule.test(mail)){
+		      alert("이메일을 형식에 맞게 입력해주세요.");
+		    return false;
+		  }
+		  
+		  document.frm.action="<c:url value='/testUserUpdate.do'/>"; 
+		  document.frm.submit();
+	});
+});
+
+function setEmailDomain(domain){
+    $("#email_domain").val(domain);
 }
 </script>
 
 <body>
 
+<jsp:include page="/WEB-INF/jsp/nav.jsp"></jsp:include>
 <div class="container">
   <h2>Panel Heading</h2>
   <div class="panel panel-default">
     <div class="panel-heading">회원정보 수정</div>
     <div class="panel-body">
-      <form action="${contextPath}/memUpdate.do" method="post">
-        <input type="hidden" name="memPassword" id="memPassword" value=""/>
-        <input type="hidden" name="memID" id="memID" value="${mvo.memID }"/>
+      <form id="frm" name="frm"  action="${contextPath}/testUserUpdate.do" method="post">
+        <input type="hidden" name="userid" id="userid" value="${userid}"/>
+        <input type="hidden" name="useremail" id="useremail"/>
       	<table class="table table-bordered" style="text-align:center; border: 1px solid #dddddd;" >
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">아이디</td>
-      	    <td>${mvo.memID }</td>
+      	    <td>${userid }</td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">비밀번호</td>
-      	    <td colspan="2"><input id="memPassword1" name="memPassword1" onkeyup="passwordCheck();" class="form-control" type="password" placeholder="비밀번호" maxlength="20"/></td>
+      	    <td colspan="2"><input id="userpass" name="userpass" onkeyup="passwordCheck();" class="form-control" type="password" placeholder="비밀번호" maxlength="20"/></td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">비밀번호 확인</td>
-      	    <td colspan="2"><input id="memPassword2" name="memPassword2" onkeyup="passwordCheck();" class="form-control" type="password" placeholder="비밀번호 확인" maxlength="20"/></td>
+      	    <td colspan="2"><input id="userpass2" name="userpass2" onkeyup="passwordCheck();" class="form-control" type="password" placeholder="비밀번호 확인" maxlength="20"/></td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">이름</td>
-      	    <td colspan="2"><input id="memName" name="memName" class="form-control" type="text" placeholder="이름" value="${mvo.memName }"/></td>
+      	    <td colspan="2"><input id="username" name="username" class="form-control" type="text" placeholder="이름" value="${userSession.username}"/></td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">나이</td>
-      	    <td colspan="2"><input id="memAge" name="memAge" class="form-control" type="text" placeholder="나이" maxlength="20"value="${mvo.memAge }"/></td>
-      	  </tr>
-      	  <tr>
-      	    <td style="width:110px; vertical-align: middle;">성별</td>
-      	    <td colspan="2">
-      	      <div class="form-group" style="text-align: center; margin:0 auto;">
-      	        <div class="btn-group" data-toggle="buttons">
-      	          <label class="btn btn-primary <c:if test="${mvo.memGender eq '남자'}"> active</c:if>">
-      	          	<input id="memGender" name="memGender" type="radio" autocomplete="off" value="남자"
-      	          	<c:if test="${mvo.memGender eq '남자'}"> checked</c:if>/>남자
-      	          </label>
-      	          <label class="btn btn-primary <c:if test="${mvo.memGender eq '여자'}"> active</c:if>">
-      	          	<input id="memGender" name="memGender"  type="radio" autocomplete="off" value="여자" 
-      	          	<c:if test="${mvo.memGender eq '여자'}"> checked</c:if> />여자
-      	          </label>
-      	        </div>
-      	      </div>
-      	    </td>
+      	    <td colspan="2"><input id="userage" name="userage" class="form-control" type="text" placeholder="나이" maxlength="20"value="${userSession.userage }"/></td>
       	  </tr>
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">이메일</td>
-      	    <td colspan="2"><input id="memEmail" name="memEmail" class="form-control" type="text" placeholder="이메일" maxlength="20" value="${mvo.memEmail }"/></td>
-      	  </tr>
+		  	<td colspan="2">
+			<input type="text" id="email_id" name="email_id" class="form_w200" value="" title="이메일 아이디" placeholder="이메일" maxlength="18" /> @ 
+			<input type="text" id="email_domain" name="email_domain" class="form_w200" value="" title="이메일 도메인" placeholder="이메일 도메인" maxlength="18"/> 
+			<select class="select" title="이메일 도메인 주소 선택" onclick="setEmailDomain(this.value);return false;">
+			    <option value="">-선택-</option>
+			    <option value="naver.com">naver.com</option>
+			    <option value="gmail.com">gmail.com</option>
+			    <option value="hanmail.net">hanmail.net</option>
+			    <option value="korea.com">korea.com</option>
+			    <option value="nate.com">nate.com</option>
+			</select>
+			</td>
+		   </tr>
       	  <tr>
       	    <td colspan="3" style="text-align: left;">
-      	    	<span id="passMessage" style="color:red;"></span><input type="submit" onclick="goUpdate();" value="수정" class="btn btn-primary btn-sm pull-right"/>
+      	    	<span id="passMessage" style="color:red;"></span><input type="button"id="btn_submit" name="btn_submit" value="수정" class="btn btn-primary btn-sm pull-right"/>
       	    </td>
       	  </tr>
       	</table>

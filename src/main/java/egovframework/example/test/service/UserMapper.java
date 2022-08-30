@@ -11,4 +11,6 @@ public interface UserMapper {
 	public UserVO registerCheck(String userid) throws Exception;
 
 	public void imageUpdate(UserVO vo);
+
+	public int userUpdate(UserVO vo);
 }

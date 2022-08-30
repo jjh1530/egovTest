@@ -6,7 +6,9 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
@@ -78,7 +80,13 @@ public class TestController {
 		
 		String writer = vo.getWriter();
 		String userid = (String) session.getAttribute("userid");
-		if (userid != null) {
+		
+		if (userid == null || userid == "") {
+			userid ="guest";
+			System.out.println("게스트");
+		}
+		
+		if (userid != null || userid != "") {
 			if (!userid.equals(writer)) {
 				testService.testCount(idx);
 			}

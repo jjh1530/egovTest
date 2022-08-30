@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.example.test.service.UserService;
 import egovframework.example.test.vo.UserVO;
@@ -112,6 +113,25 @@ public class UserController {
 	public String testUserUpdateForm() {
 		
 		return "testUserUpdateForm";
+	}
+	
+	@RequestMapping(value="/testUserUpdate.do")
+	public String testUserUpdate(UserVO vo, HttpServletRequest request,RedirectAttributes rttr) throws Exception{
+		String email = request.getParameter("email_id");
+		String domain = request.getParameter("email_domain");
+		vo.setUseremail(email+"@" + domain);
+		int result =userService.userUpdate(vo);
+		if (result == 1) {
+			rttr.addFlashAttribute("msgType","수정");
+			rttr.addFlashAttribute("msg","수정되었습니다.");
+		}else {
+			rttr.addFlashAttribute("msgType","수정실패");
+			rttr.addFlashAttribute("msg","수정 실패하였습니다.");
+		}
+		
+		
+		
+		return "redirect:/testBoardList.do";
 	}
 	
 }
