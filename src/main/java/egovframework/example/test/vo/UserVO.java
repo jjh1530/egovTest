@@ -14,6 +14,7 @@ public class UserVO {
 	private MultipartFile uploadFile;
 	
 	
+	
 	public String getUserid() {
 		return userid;
 	}

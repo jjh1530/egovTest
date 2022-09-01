@@ -63,4 +63,8 @@
 		UPDATE testboard SET count= count + 1
 		WHERE idx =#{idx}
 	</update>
+	
+	<select id="selectList" resultType="testVO">
+		SELECT * FROM testboard
+	</select>
 </mapper>

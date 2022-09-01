@@ -129,8 +129,6 @@ public class UserController {
 			rttr.addFlashAttribute("msg","수정 실패하였습니다.");
 		}
 		
-		
-		
 		return "redirect:/testBoardList.do";
 	}
 	

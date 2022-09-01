@@ -49,4 +49,9 @@ public class TestServiceImpl implements TestService{
 	public void testCount(int idx) throws Exception {
 		testDao.testCount(idx);
 	}
+	
+	@Override
+	public List<TestVO> selectList() throws Exception {
+		return testDao.selectList();
+	}
 }

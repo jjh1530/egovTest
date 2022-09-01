@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <script>
 $(document).ready(function(){
@@ -136,7 +138,17 @@ $(function() {
 function setEmailDomain(domain){
     $("#email_domain").val(domain);
 }
+const config = {
+		dateFormat: 'yy-mm-dd'	
+	    ,changeYear: true // 콤보박스에서 년 선택 가능
+	    ,changeMonth: true // 콤보박스에서 월 선택 가능
 
+	}
+
+	/* 캘린더 */
+	$(function() {
+	  $( "input[name='publeYear']" ).datepicker(config);
+	});
 </script>
 <body>
 <jsp:include page="/WEB-INF/jsp/nav.jsp"></jsp:include>
@@ -174,6 +186,13 @@ function setEmailDomain(domain){
       	    <td colspan="2"><input id="useremail" name="useremail" class="form-control" type="text" placeholder="이메일" maxlength="20"/></td>
       	  </tr>
       	   -->
+      	  
+      	  <tr>
+      	    <td style="width:110px; vertical-align: middle;">생년월일</td>
+      	    <td><input name="publeYear" autocomplete="off" readonly="readonly"></td>
+      	  </tr>
+      	  
+      	  
       	  
 		  <tr>
       	    <td style="width:110px; vertical-align: middle;">이메일</td>

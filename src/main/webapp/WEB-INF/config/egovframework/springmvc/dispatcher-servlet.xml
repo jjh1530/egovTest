@@ -17,6 +17,19 @@
         <property name="webBindingInitializer">
             <bean class="egovframework.example.cmmn.web.EgovBindingInitializer"/>
         </property>
+        <!-- json파싱 -->
+        <property name="messageConverters">
+        	<list>
+        		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+        		<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter">
+        			<property name ="supportedMediaTypes">
+        				<list>
+        					<value>*/*;charset=UTF-8</value>
+        				</list>
+        			</property>
+        		</bean>
+        	</list>
+        </property>
     </bean>
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <property name="interceptors">
@@ -65,6 +78,8 @@
 		<property name="maxUploadSize" value="100000000" />
 		<property name="maxInMemorySize" value="100000000"/>
 	</bean>
+	
+	
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
 </beans>

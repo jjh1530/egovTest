@@ -124,8 +124,8 @@
 			<version>2.5.0</version>
 		</dependency>
 		
-		<!-- db연결 -->
-         <dependency>
+		<!-- maria DB  -->
+        <dependency>
             <groupId>com.googlecode.log4jdbc</groupId>
             <artifactId>log4jdbc</artifactId>
             <version>1.2</version>
@@ -136,23 +136,49 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency>
-
-		<dependency>
+        
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.12</version>
         </dependency>
-		
-       <dependency>
+        
+        <dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<version>2.4.1</version>
+		</dependency>
+		
+		<!-- file upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		
+		<dependency>  
+			<groupId>commons-net</groupId>  
+			<artifactId>commons-net</artifactId>  
+			<version>3.6</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.jcraft</groupId>
+		    <artifactId>jsch</artifactId>
+		    <version>0.1.55</version>
+		</dependency>
+
+		<!-- MultipartHttpServletRequset -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
 		</dependency>
 		
 		<dependency>
@@ -166,19 +192,39 @@
 			<version>3.4.6</version>
 		</dependency>
 		
-		<!-- file upload -->
+		<!-- 구글 차트 시작 -->
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
 		</dependency>
+       
+	  	<dependency>       
+		<groupId>net.sf.json-lib</groupId>
+		<artifactId>json-lib</artifactId>       
+		<version>2.4</version>       
+		<classifier>jdk15</classifier>
+	</dependency>
+		 
+	<dependency>
+		 <groupId>org.codehaus.jackson</groupId>
+		 <artifactId>jackson-mapper-asl</artifactId>
+		 <version>1.9.13</version>
+	</dependency>
+    
+	<dependency>
+		 <groupId>com.fasterxml.jackson.core</groupId>
+		 <artifactId>jackson-core</artifactId>
+		 <version>2.9.9</version>
+	</dependency> 
 		
-		<!-- MultipartHttpServletRequset -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>
+	<dependency>
+		 <groupId>com.fasterxml.jackson.core</groupId>
+		 <artifactId>jackson-databind</artifactId>
+		 <version>2.9.9</version>
+	</dependency> 
+	  	 
 		
 	</dependencies>
 

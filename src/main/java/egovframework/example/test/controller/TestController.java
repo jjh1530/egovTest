@@ -168,6 +168,7 @@ public class TestController {
 		
 		return "redirect:testBoardList.do";
 	}
+	
 
 	@RequestMapping(value="/replyInsert.do")
 	public String replyInsert(ReplyVO vo,RedirectAttributes re) throws Exception{
@@ -176,6 +177,8 @@ public class TestController {
 		replyService.replyInsert(vo);
 		return "redirect:testBoardDetail.do";
 	}
+	
+	
 	
 	
 }

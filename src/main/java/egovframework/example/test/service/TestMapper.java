@@ -23,4 +23,6 @@ public interface TestMapper {
 	public void testBoardUpdate(TestVO vo) throws Exception;
 
 	public void testCount(int idx) throws Exception;
+
+	public List<TestVO> selectList() throws Exception;
 }

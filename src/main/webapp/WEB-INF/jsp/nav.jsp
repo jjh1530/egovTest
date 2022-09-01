@@ -25,6 +25,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/main.do">Home</a></li>
         <li><a href="/testBoardList.do">게시판</a></li>
+        <li><a href="/ajaxBoard.do">Ajax게시판</a></li>
         <li><a href="/testNoticeList.do">공지사항</a></li>
       </ul>
       <c:if test="${empty userSession }">
@@ -46,7 +47,6 @@
 		  		<li><img src="<c:out value='file_repo/${userSession.filename}'/>" style="width:50px; height:50px;" class="img-circle">${userSession.userid}</li>
 			  </c:if>
 	      </ul>
-	      
       </c:if>
     </div>
   </div>

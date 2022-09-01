@@ -59,4 +59,10 @@ public class TestDaoImpl implements TestDao {
 		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 		mapper.testCount(idx);
 	}
+	
+	@Override
+	public List<TestVO> selectList() throws Exception {
+		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+		return mapper.selectList();
+	}
 }
