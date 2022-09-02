@@ -29,4 +29,17 @@ public class AjaxController {
 		
 		return list; // Json
 	}
+	
+	@RequestMapping("/ajaxWrite.do")
+	@ResponseBody
+	public void ajaxWrite(TestVO vo) throws Exception {
+		
+		testService.testBoardWrite(vo);
+	}
+	
+	@RequestMapping("/ajaxDelete.do")
+	@ResponseBody
+	public void ajaxDelete(int idx) throws Exception {
+		testService.testBoardDelete(idx);
+	}
 }
