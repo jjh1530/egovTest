@@ -13,7 +13,6 @@
 <script>
 $(document).ready(function(){
 	loadList();
-	
 });
 
 //서버와 통신 : 게시판 리스트 가져오기
@@ -36,23 +35,24 @@ function makeView(data) {
 	listHtml+="<td>작성자</td>";
 	listHtml+="<td>작성일</td>";
 	listHtml+="<td>조회수</td>";
+	
 	listHtml+="</tr>";
 	$.each(data,function(index,obj) {
 		listHtml+="<tr>";
 		listHtml+="<td>"+obj.idx+"</td>";
-		listHtml+="<td><a href='javascript:goContent("+obj.idx+")'>"+obj.title+"</a></td>";
+		listHtml+="<td id='t"+obj.idx+"'><a href='javascript:goContent("+obj.idx+")'>"+obj.title+"</a></td>";
 		listHtml+="<td>"+obj.writer+"</td>";
-		listHtml+="<td>"+obj.indate+"</td>";
-		listHtml+="<td>"+obj.count+"</td>";
+		listHtml+="<td>"+obj.indate.split(' ')[0]+"</td>";
+		listHtml+="<td id='cnt"+obj.idx+"'>"+obj.count+"</td>";
 		listHtml+="</tr>";
 		
 		//내용 (디테일)
 		listHtml+="<tr id='c"+obj.idx+"' style='display:none'>";  //아이디 지정 후 idx 붙여줌
 		listHtml+="<td>내용</td>";
 		listHtml+="<td colspan='4'>";
-		listHtml+="<textarea rows='7' class='form-control' readonly='readonly'>"+obj.content+"</textarea>";
+		listHtml+="<textarea id='ta"+obj.idx+"' rows='7' class='form-control' readonly='readonly'>"+obj.content+"</textarea>";
 		listHtml+="</br>";
-		listHtml+="<button class='btn btn-success btn-sm'>수정</button>&nbsp;";
+		listHtml+="<span id ='up"+obj.idx+"'><button class='btn btn-success btn-sm' onclick='goUpdateForm("+obj.idx+")'>수정화면</button></span>&nbsp;";
 		listHtml+="<button class='btn btn-warning btn-sm' onclick='goDelete("+obj.idx+")'>삭제</button>";  
 		listHtml+="</td>";
 		listHtml+="</tr>";
@@ -105,6 +105,18 @@ function goContent(idx) {
 		$("#c"+idx).css("display","table-row");  //colspan을 위해 block이 아닌 table-row
 	}else {
 		$("#c"+idx).css("display","none");  //보이지 않게
+		
+		// 상세보기 닫힐 때 조회수 증가
+		$.ajax({
+			url : "ajaxCount.do",
+			type : "get",
+			data : {"idx" : idx} ,
+			dataType : "json" ,
+			success : function(data) {
+				$("#cnt"+idx).text(data.count);
+			},
+			error : function() { alert("error"); }
+		});
 	}
 }
 function goDelete(idx){
@@ -116,8 +128,31 @@ function goDelete(idx){
 		error : function(){ alert("error"); }
 	});
 }
-
+function goUpdateForm(idx) {
+	$("#ta"+idx).attr("readonly",false); //수정가능하게 readonly 속성 변경
+	var title = $("#t"+idx).text();  //원 제목 값
+	//수정화면 클릭시 newInput으로 html변경
+	//id지정하여 goUpdate와 연결
+	var newInput="<input type='text' id='nt"+idx+"' class='form-control' value='"+title+"'/>";
 	
+	$("#t"+idx).html(newInput);
+	
+	var newButton="<button class='btn btn-info btn-sm' onclick='goUpdate("+idx+")'>수정</button>"
+	$("#up"+idx).html(newButton);
+}
+
+function goUpdate(idx) {
+	var title = $("#nt"+idx).val();
+	var content = $("#ta"+idx).val();
+	
+	$.ajax({
+		url : "ajaxUpdate.do",
+		type : "post",
+		data : {"idx":idx,"title":title, "content": content},
+		success : loadList,
+		error : function() {alert("error");}
+	});
+}	
 	
 </script>
 <title>Insert title here</title>

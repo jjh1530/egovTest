@@ -42,4 +42,20 @@ public class AjaxController {
 	public void ajaxDelete(int idx) throws Exception {
 		testService.testBoardDelete(idx);
 	}
+	
+	@RequestMapping("/ajaxUpdate.do")
+	@ResponseBody
+	public void ajaxUpdate(TestVO vo) throws Exception{
+		testService.testBoardUpdate(vo);
+	}
+	
+	@RequestMapping("/ajaxCount.do")
+	@ResponseBody
+	public TestVO ajaxCount(int idx) throws Exception {
+		testService.testCount(idx);
+		TestVO vo = testService.testBoardDetail(idx);
+		
+		return vo;
+		
+	}
 }
