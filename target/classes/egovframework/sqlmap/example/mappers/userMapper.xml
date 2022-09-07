@@ -26,4 +26,9 @@
 				userage=#{userage}, useremail=#{useremail}
 		WHERE userid=#{userid}
 	</update>
+	
+	<select id="passUpdate" parameterType="userVO">
+		update testuser set userpass=#{userpass}
+		WHERE BINARY(userid) = #{userid} 
+	</select>
 </mapper>

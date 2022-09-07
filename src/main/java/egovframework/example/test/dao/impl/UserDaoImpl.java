@@ -44,4 +44,9 @@ public class UserDaoImpl implements UserDao {
 		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 		return mapper.userUpdate(vo);
 	}
+	@Override
+	public void passUpdate(UserVO vo) {
+		UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+		mapper.passUpdate(vo);
+	}
 }

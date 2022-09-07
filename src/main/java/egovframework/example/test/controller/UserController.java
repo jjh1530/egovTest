@@ -83,6 +83,12 @@ public class UserController {
 		return message;
 	}
 	
+	@RequestMapping("userDetailForm.do")
+	public String userDetailForm() {
+		
+		return "userDetailForm";
+	}
+	
 	@RequestMapping(value="/testImageUploadForm.do")
 	public String testImageUploadForm() {
 		return "testImageUploadForm";
@@ -131,5 +137,12 @@ public class UserController {
 		
 		return "redirect:/testBoardList.do";
 	}
-	
+	@RequestMapping(value="/userPassUpdate.do")
+	public String userPassUpdate(UserVO vo,RedirectAttributes rttr) throws Exception {
+		
+		userService.passUpdate(vo);
+		rttr.addFlashAttribute("msgType","수정");
+		rttr.addFlashAttribute("msg","비밀번호가 변경되었습니다.");
+		return "redirect:/userDetailForm.do";
+	}
 }

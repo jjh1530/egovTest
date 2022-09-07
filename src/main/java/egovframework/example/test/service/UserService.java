@@ -14,4 +14,6 @@ public interface UserService {
 	public void imageUpdate(UserVO vo);
 	
 	public int userUpdate(UserVO vo);
+	
+	public void passUpdate(UserVO vo);
 }
