@@ -121,7 +121,7 @@ $(function() {
     		
     		/* 전송 후 세팅  */
     		success: function(result) {
-    			if(result == "ok") {
+    			if(result == 1) {
     				alert("회원가입 되었습니다.");
     				location = "testBoardList.do";
     			} else {
@@ -138,17 +138,7 @@ $(function() {
 function setEmailDomain(domain){
     $("#email_domain").val(domain);
 }
-const config = {
-		dateFormat: 'yy-mm-dd'	
-	    ,changeYear: true // 콤보박스에서 년 선택 가능
-	    ,changeMonth: true // 콤보박스에서 월 선택 가능
 
-	}
-
-	/* 캘린더 */
-	$(function() {
-	  $( "input[name='publeYear']" ).datepicker(config);
-	});
 </script>
 <body>
 <jsp:include page="/WEB-INF/jsp/nav.jsp"></jsp:include>
@@ -186,12 +176,12 @@ const config = {
       	    <td colspan="2"><input id="useremail" name="useremail" class="form-control" type="text" placeholder="이메일" maxlength="20"/></td>
       	  </tr>
       	   -->
-      	  
+      	 <!-- 
       	  <tr>
       	    <td style="width:110px; vertical-align: middle;">생년월일</td>
       	    <td><input name="publeYear" autocomplete="off" readonly="readonly"></td>
       	  </tr>
-      	  
+      	   --> 
       	  
       	  
 		  <tr>

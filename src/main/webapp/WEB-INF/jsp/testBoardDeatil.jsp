@@ -138,13 +138,15 @@ function replyAdd(){
  
  <!-- 댓글 -->
    <div class="panel panel-default">
-    <div class="panel-heading">댓글</div>
     
  <div class="panel-body">
   <form id="form1" name="form1" class="form-horizontal" method="post">
   	<c:forEach var="reply" items="${reply }" varStatus="loop">
   		<div class="form-group">
-         <label class="control-label col-sm-2">댓글 :</label>
+         <label class="control-label col-sm-2">
+         <c:if test="${reply.profile != null }">
+   			<img src="<c:out value='file_repo/${reply.profile}'/>" style="width:50px; height:50px;" class="img-circle">
+   		 </c:if> 댓글 :</label>
          <div class="col-sm-10">
            <pre><c:out value="${reply.content}"/></pre>
             	작성자 : <c:out value="${reply.writer}"/>

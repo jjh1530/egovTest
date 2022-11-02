@@ -12,6 +12,7 @@ public class TestVO {
 	private String indate;
 	private String filename;
 	private MultipartFile uploadFile;
+	private String boardpass;
 	
 	public int getIdx() {
 		return idx;
@@ -60,6 +61,12 @@ public class TestVO {
 	}
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+	public String getBoardpass() {
+		return boardpass;
+	}
+	public void setBoardpass(String boardpass) {
+		this.boardpass = boardpass;
 	}
 	
 	

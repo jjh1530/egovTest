@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -178,7 +179,28 @@ public class TestController {
 		return "redirect:testBoardDetail.do";
 	}
 	
+	@RequestMapping(value="/testBoardPassForm.do")
+	public String testBoardPassForm(TestVO vo, Model model, HttpServletRequest request) throws Exception{
+		
+		int num= Integer.parseInt(request.getParameter("idx"));
+		
+		TestVO detail = testService.testBoardDetail(num);
+		model.addAttribute("vo",detail);
+		
+		return "testBoardPassForm";
+	}
 	
-	
+	@RequestMapping(value="/boardPassCheck.do")
+	@ResponseBody
+	public int boardPassCheck(HttpServletRequest request, TestVO vo) throws Exception {
+		
+		int message = 0;
+		int count = testService.boardPassCheck(vo);
+		if (count == 1) {
+			message = 1;
+		}
+		
+		return message;
+	}
 	
 }

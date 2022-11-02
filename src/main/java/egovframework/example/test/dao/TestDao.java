@@ -25,5 +25,7 @@ public interface TestDao {
 	public void testCount(int idx) throws Exception;
 
 	public List<TestVO> selectList() throws Exception;
+
+	public int boardPassCheck(TestVO vo) throws Exception;
 }
 	

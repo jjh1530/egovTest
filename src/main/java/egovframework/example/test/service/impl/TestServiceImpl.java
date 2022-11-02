@@ -54,4 +54,9 @@ public class TestServiceImpl implements TestService{
 	public List<TestVO> selectList() throws Exception {
 		return testDao.selectList();
 	}
+	
+	@Override
+	public int boardPassCheck(TestVO vo) throws Exception {
+		return testDao.boardPassCheck(vo);
+	}
 }

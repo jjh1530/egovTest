@@ -3,8 +3,8 @@
 <mapper namespace="egovframework.example.test.service.ReplyMapper">
 
 	<insert id="replyInsert" parameterType="replyVO">
-		INSERT INTO testreply(idx, content, writer)
-		VALUES(#{idx}, #{content}, #{writer})
+		INSERT INTO testreply(idx, content, writer,profile)
+		VALUES(#{idx}, #{content}, #{writer},(SELECT filename FROM testuser WHERE userid = #{writer}))
 	</insert>
 	
 	<select id="replyBoard" resultType="replyVO" >

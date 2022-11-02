@@ -127,7 +127,13 @@ $(document).on('click','#btnSearch',function(e){
 				<c:forEach var="vo" items="${vo }" varStatus="loop">
 					<tr>
 						<td>${vo.idx}</td>
-						<td><a href="testBoardDetail.do?idx=${vo.idx}">${vo.title}</a></td>
+						<!-- <td><a href="testBoardDetail.do?idx=${vo.idx}">${vo.title}</a></td> -->
+						<c:if test="${vo.boardpass != '' }">  <!-- 비밀번호 있음 -->
+							<td><a href="testBoardPassForm.do?idx=${vo.idx }" >${vo.title}</a></td>
+						</c:if>
+						<c:if test="${vo.boardpass == '' }">
+							<td><a href="testBoardDetail.do?idx=${vo.idx}">${vo.title}</a></td>
+						</c:if>
 						<td>${vo.count}</td>
 						<td>${vo.writer}</td>
 						<td>${fn:split(vo.indate,' ')[0]}</td>

@@ -31,4 +31,5 @@
 		update testuser set userpass=#{userpass}
 		WHERE BINARY(userid) = #{userid} 
 	</select>
+	
 </mapper>

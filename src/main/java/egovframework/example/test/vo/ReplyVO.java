@@ -7,6 +7,7 @@ public class ReplyVO {
 		private String content;
 		private String writer;
 		private String indate;
+		private String profile;
 		
 		
 		public int getIdx() {
@@ -39,6 +40,13 @@ public class ReplyVO {
 		public void setIndate(String indate) {
 			this.indate = indate;
 		}
+		public String getProfile() {
+			return profile;
+		}
+		public void setProfile(String profile) {
+			this.profile = profile;
+		}
+		
 		
 		
 

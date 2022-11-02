@@ -46,8 +46,8 @@
 	</select>
 	
 	<insert id="testBoardWrite" parameterType="testVO">
-		INSERT INTO testboard(title, content, writer,filename)
-		VALUES(#{title}, #{content}, #{writer},#{filename})
+		INSERT INTO testboard(title, content, writer,filename, boardpass)
+		VALUES(#{title}, #{content}, #{writer},#{filename},#{boardpass})
 	</insert>
 	
 	<delete id="testBoardDelete">
@@ -66,5 +66,11 @@
 	
 	<select id="selectList" resultType="testVO">
 		SELECT * FROM testboard
+	</select>
+	
+	<select id="boardPassCheck" resultType="integer">
+		SELECT COUNT(*)
+		FROM testboard
+		WHERE  boardpass=#{boardpass} AND idx = #{idx}
 	</select>
 </mapper>

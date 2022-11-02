@@ -2,6 +2,7 @@ package egovframework.example.test.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,12 +75,13 @@ public class UserController {
 	
 	@RequestMapping(value="userRegister.do")
 	@ResponseBody
-	public String userRegister(UserVO vo) throws Exception{
-		String message ="";
+	public int userRegister(UserVO vo) throws Exception{
+		int message =0;
 		int result = userService.register(vo);
 		if (result == 1) {
-			message ="ok";
+			message =1;
 		}
+		System.out.println(message);
 		return message;
 	}
 	
@@ -145,4 +147,6 @@ public class UserController {
 		rttr.addFlashAttribute("msg","비밀번호가 변경되었습니다.");
 		return "redirect:/userDetailForm.do";
 	}
+	
+	
 }

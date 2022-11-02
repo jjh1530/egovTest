@@ -65,4 +65,10 @@ public class TestDaoImpl implements TestDao {
 		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 		return mapper.selectList();
 	}
+	
+	@Override
+	public int boardPassCheck(TestVO vo) throws Exception {
+		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+		return mapper.boardPassCheck(vo);
+	}
 }

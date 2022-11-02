@@ -1,6 +1,8 @@
 package egovframework.example.test.dao;
 
 
+import java.util.HashMap;
+
 import egovframework.example.test.vo.UserVO;
 
 public interface UserDao {
@@ -16,5 +18,6 @@ public interface UserDao {
 	public int userUpdate(UserVO vo);
 
 	public void passUpdate(UserVO vo);
+
 }
 	

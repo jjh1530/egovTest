@@ -78,6 +78,11 @@
       	</table>
       </form>
     </div>
+    
+    <div class="panel-body" id="jspTagView">
+    
+    </div>
+    
     <div class="panel-footer">test</div>
 </div>
   
@@ -105,6 +110,7 @@
   </div>
 </div>
 <script type="text/javascript">
+	
 $(document).ready(function(){
 	userDetail();
 });

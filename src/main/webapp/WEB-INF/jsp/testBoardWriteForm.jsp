@@ -51,6 +51,15 @@
 				
 			});
 		});
+	 function passwordCheck() {
+			var boardpass = $("#boardpass").val();
+			var boardpass2 = $("#boardpass2").val();
+			if (boardpass != boardpass2) {
+				$("#passMessage").html("비밀번호가 일치하지 않습니다.");
+			}else {
+				$("#passMessage").html("");
+			}		
+		}
  </script>
 <head>
 <meta charset="UTF-8">
@@ -87,6 +96,24 @@
 		     <input multiple="multiple"type="file" id="uploadFile" name="uploadFile"  style="width:30%">
 		    </div>
 		    </div>
+		    <div class="form-group">
+				<label class="control-label col-sm-2" for="boardpass">게시글 비밀번호 :</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="boardpass" name="boardpass" onkeyup="passwordCheck();"
+						placeholder="비밀번호를 입력하세요">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="boardpass2">비밀번호 확인 :</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="boardpass2" name="boardpass2" onkeyup="passwordCheck();"
+						placeholder="비밀번호를 입력하세요">
+				</div>
+			</div>
+			<div>
+			   <span>비밀번호는 필수 입력이 아닙니다.</span><br>
+      	       <span id="passMessage" style="color:red;"></span>
+			</div>
 		    <div style="text-align:center;">
 	   	   <input type="button" value="등록" id ="btn_add" name="btn_add" class='btn btn-primary' onclick="testBoardAdd()"/>
 	       <input type="button" value="리스트"  onclick="location.href='${contextPath}/testBoardList.do'" class='btn btn-success'/>
