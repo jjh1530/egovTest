@@ -203,4 +203,26 @@ public class TestController {
 		return message;
 	}
 	
+	@RequestMapping(value="/replyDelete.do")
+	public String replyDelete(ReplyVO vo, RedirectAttributes re
+			,HttpServletRequest request) throws Exception {
+		
+		int replyidx = Integer.parseInt(request.getParameter("idx"));
+		int replyrno = Integer.parseInt(request.getParameter("rno"));
+		System.out.println(replyidx + "인덱스");
+		System.out.println(replyrno +"댓글번호");
+		re.addAttribute("idx", replyidx);
+		
+		testService.replyDelete(vo);
+		return "redirect:testBoardDetail.do";
+	}
+	
+	@RequestMapping(value="/replyUpdate.do")
+	public String replyUpdate(ReplyVO vo, RedirectAttributes re
+			,HttpServletRequest request) throws Exception{
+		re.addAttribute("idx", vo.getIdx());
+		testService.replyUpdate(vo);
+		
+		return "redirect:testBoardDetail.do";
+	}
 }

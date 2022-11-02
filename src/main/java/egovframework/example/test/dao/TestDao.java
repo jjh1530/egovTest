@@ -2,6 +2,7 @@ package egovframework.example.test.dao;
 
 import java.util.List;
 
+import egovframework.example.test.vo.ReplyVO;
 import egovframework.example.test.vo.Search;
 import egovframework.example.test.vo.TestVO;
 
@@ -27,5 +28,9 @@ public interface TestDao {
 	public List<TestVO> selectList() throws Exception;
 
 	public int boardPassCheck(TestVO vo) throws Exception;
+
+	public void replyDelete(ReplyVO vo) throws Exception;
+
+	public void replyUpdate(ReplyVO vo) throws Exception;
 }
 	

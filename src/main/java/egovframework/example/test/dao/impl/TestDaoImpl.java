@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import egovframework.example.test.dao.TestDao;
 import egovframework.example.test.service.TestMapper;
+import egovframework.example.test.vo.ReplyVO;
 import egovframework.example.test.vo.Search;
 import egovframework.example.test.vo.TestVO;
 
@@ -70,5 +71,17 @@ public class TestDaoImpl implements TestDao {
 	public int boardPassCheck(TestVO vo) throws Exception {
 		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 		return mapper.boardPassCheck(vo);
+	}
+	
+	@Override
+	public void replyDelete(ReplyVO vo) throws Exception {
+		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+		mapper.replyDelete(vo);
+	}
+	
+	@Override
+	public void replyUpdate(ReplyVO vo) throws Exception {
+		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+		mapper.replyUpdate(vo);
 	}
 }

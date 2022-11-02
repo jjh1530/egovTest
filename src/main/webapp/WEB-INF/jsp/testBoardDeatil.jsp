@@ -12,7 +12,22 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
+var idx ="";
+var rno = "";
 
+$(document).ready(function() {  
+
+$('#updateModal').on('show.bs.modal', function(event) {          
+    idx = $(event.relatedTarget).data('replyidx');
+    rno = $(event.relatedTarget).data('replyrno');
+});
+
+});
+
+function replyUpdate() {
+ 	 var content = $("#upreply").val();
+ 	 location.href='/replyUpdate.do?idx='+idx + '&rno=' +rno+ '&content=' +content;
+  }
 function boardDelete() {
     location.href="${contextPath}/testBoardDelete.do?idx=${vo.idx }";
 }
@@ -38,6 +53,7 @@ function replyAdd(){
 			}
 		});
 	});
+
 </script>
 <head>
 <meta charset="UTF-8">
@@ -152,6 +168,15 @@ function replyAdd(){
             	작성자 : <c:out value="${reply.writer}"/>
             	<!-- 작성시간 : <c:out value="${fn:split(reply.indate, ' ')[0]}"/> -->
             	작성시간 : <c:out value="${reply.indate}"/>
+            	<c:if test="${reply.writer == userid}">
+					<div style="text-align:right;">
+					<input type="text" id="idx" name="idx" value="${reply.idx }"/>
+					<input type="text" id="rno" name="rno" value="${reply.rno }"/>
+					<button type="button" class="btn btn-defualt" onclick="location.href='/replyDelete.do?rno=${reply.rno}&idx=${reply.idx }'">삭제하기</button>
+					<button type="button" class="btn btn-defualt" data-toggle="modal" data-target="#updateModal"
+            				 data-replyidx="${reply.idx }"  data-replyrno="${reply.rno}">수정</button>
+					</div>           	
+            	</c:if>
          </div>
     	</div> 
  
@@ -160,6 +185,27 @@ function replyAdd(){
 	</div>
  	</div>
 </div>
-</body>
+<!-- 댓글 수정 Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">댓글 수정</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     	<input type="text" class="form-control" placeholder="댓글을 입력하세요." id="upreply" name="upreply"/> 
+   	
+      </div>
+      <div class="modal-footer">
+      	
+      	<button type="button" class="btn btn-primary" onclick="replyUpdate();">수정하기</button>
+       	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

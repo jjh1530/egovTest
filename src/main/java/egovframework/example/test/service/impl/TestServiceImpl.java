@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import egovframework.example.test.dao.TestDao;
 import egovframework.example.test.service.TestService;
+import egovframework.example.test.vo.ReplyVO;
 import egovframework.example.test.vo.Search;
 import egovframework.example.test.vo.TestVO;
 
@@ -58,5 +59,15 @@ public class TestServiceImpl implements TestService{
 	@Override
 	public int boardPassCheck(TestVO vo) throws Exception {
 		return testDao.boardPassCheck(vo);
+	}
+	
+	@Override
+	public void replyDelete(ReplyVO vo) throws Exception {
+		testDao.replyDelete(vo);
+	}
+	
+	@Override
+	public void replyUpdate(ReplyVO vo) throws Exception {
+		testDao.replyUpdate(vo);
 	}
 }

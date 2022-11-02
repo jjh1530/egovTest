@@ -40,7 +40,7 @@ $(function() {
     		
     		/* 전송 후 세팅  */
     		success: function(result) {
-    			if(result == "ok") {
+    			if(result == 1) {
     				alert(userid + "님 로그인 되었습니다.");
     				location = "testBoardList.do";
     			} else {

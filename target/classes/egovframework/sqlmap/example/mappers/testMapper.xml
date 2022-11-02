@@ -73,4 +73,13 @@
 		FROM testboard
 		WHERE  boardpass=#{boardpass} AND idx = #{idx}
 	</select>
+	
+	<delete id="replyDelete">
+		DELETE FROM testreply WHERE rno = #{rno} AND idx=#{idx}
+	</delete>
+	
+	<update id="replyUpdate" parameterType="replyVO">
+		UPDATE testreply SET content =#{content}
+		WHERE idx =#{idx} AND rno =#{rno}
+	</update>
 </mapper>

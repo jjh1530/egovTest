@@ -33,18 +33,18 @@ public class UserController {
 	
 	@RequestMapping(value="/testLogin.do")
 	@ResponseBody
-	public String testLogin(UserVO vo,HttpSession session) throws Exception {
+	public int testLogin(UserVO vo,HttpSession session) throws Exception {
 		
-		String message ="";
+		int message =0;
 		
 		UserVO uvo= userService.userLogin(vo);
 		if(uvo != null) {
 			session.setMaxInactiveInterval(1800);
 			session.setAttribute("userSession", uvo);
 			session.setAttribute("userid", uvo.getUserid());
-			message = "ok";
+			message = 1;
 		}
-		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		return message;
 	}
 	
