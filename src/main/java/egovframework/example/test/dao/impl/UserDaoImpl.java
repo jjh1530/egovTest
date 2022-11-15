@@ -1,7 +1,6 @@
 package egovframework.example.test.dao.impl;
 
 
-import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

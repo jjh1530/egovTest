@@ -1,8 +1,6 @@
 package egovframework.example.test.service;
 
 
-import java.util.HashMap;
-
 import egovframework.example.test.vo.UserVO;
 
 public interface UserService {
